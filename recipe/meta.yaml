@@ -1,0 +1,47 @@
+{% set name = "torch-lr-finder" %}
+{% set version = "0.2.1" %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/torch-lr-finder-{{ version }}.tar.gz
+  sha256: 151ad6ed0e32cee6c4a84a1a871281c52975198acb25884a7cd51a528bc7c2f3
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - python >=3.5
+    - torch
+  run:
+    - matplotlib-base
+    - numpy
+    - packaging
+    - python >=3.5
+    - pytorch >=0.4.1
+    - tqdm
+
+test:
+  imports:
+    - torch_lr_finder
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/davidtvs/pytorch-lr-finder
+  summary: Pytorch implementation of the learning rate range test
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - dholth
