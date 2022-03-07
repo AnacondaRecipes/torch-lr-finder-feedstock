@@ -19,7 +19,7 @@ requirements:
   host:
     - pip
     - python >=3.5
-    - torch
+    - pytorch
   run:
     - matplotlib-base
     - numpy
