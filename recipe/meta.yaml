@@ -40,6 +40,7 @@ about:
   home: https://github.com/davidtvs/pytorch-lr-finder
   summary: Pytorch implementation of the learning rate range test
   license: MIT
+  license_family: MIT
   license_file: LICENSE
 
 extra:
