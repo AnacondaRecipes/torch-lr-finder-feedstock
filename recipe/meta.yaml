@@ -13,13 +13,14 @@ source:
 build:
   number: 0
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv
 
 requirements:
   host:
     - pip
     - python
-    - pytorch
+    - setuptools
+    - wheel
   run:
     - matplotlib-base
     - numpy
