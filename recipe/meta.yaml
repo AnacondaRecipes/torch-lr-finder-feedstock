@@ -1,20 +1,17 @@
 {% set name = "torch-lr-finder" %}
-{% set version = "0.2.1" %}
-
+{% set version = "0.2.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/torch-lr-finder-{{ version }}.tar.gz
-  sha256: 151ad6ed0e32cee6c4a84a1a871281c52975198acb25884a7cd51a528bc7c2f3
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
+  sha256: d659725028e1ab860deeabe01f445e07f758285c524c8720bd9cc3f39343c778
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv
-  skip: true  # [osx or ppc64le]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
   host:
@@ -26,26 +23,33 @@ requirements:
     - matplotlib-base
     - numpy
     - packaging
-    - python >=3.5
+    - python
     - pytorch >=0.4.1
     - tqdm
 
+# Upstream tests skipped due to missing task package in main channel
 test:
   imports:
     - torch_lr_finder
-  commands:
-    - pip check
+    - torch_lr_finder.lr_finder
   requires:
     - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/davidtvs/pytorch-lr-finder
-  dev_url: https://github.com/davidtvs/pytorch-lr-finder
-  doc_url: https://github.com/davidtvs/pytorch-lr-finder
-  summary: Pytorch implementation of the learning rate range test
   license: MIT
   license_family: MIT
   license_file: LICENSE
+  summary: Pytorch implementation of the learning rate range test
+  description: |
+    The learning rate range test is a test that provides valuable information about the optimal learning rate. 
+    During a pre-training run, the learning rate is increased linearly or exponentially between two boundaries. 
+    The low initial learning rate allows the network to start converging and as the learning rate is increased 
+    it will eventually be too large and the network will diverge.
+  dev_url: https://github.com/davidtvs/pytorch-lr-finder
+  doc_url: https://github.com/davidtvs/pytorch-lr-finder
 
 extra:
   recipe-maintainers:
